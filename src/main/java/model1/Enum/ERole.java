@@ -1,11 +1,11 @@
-package Enums;
+package model1.Enum;
 
-public enum ROLE {
-
+public enum ERole {
     STUDENT,
     MANAGER,
     TEACHER,
     DEAN,
     HOD,
-    LIBRARIAN
+    LIBRARIAN;
+
 }
