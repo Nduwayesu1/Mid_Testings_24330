@@ -9,29 +9,24 @@ public class Borrower {
     @EmbeddedId
     private BorrowerId id;
 
-    @ManyToOne
-    @MapsId("bookId")  // Hano ira mapping  bookId-> composite pk yo muri book
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("bookId")
     @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     private Book book;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("readerId")
     @JoinColumn(name = "reader_id", referencedColumnName = "user_id")
     private User reader;
-
+    @Column(name = "return_date")  // Add this field if not present
+    private LocalDate returnDate;
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
     @Column(name = "fine", nullable = false)
     private Integer fine;
 
-
-    //the resource:  https://docs.redhat.com/en/documentation/jboss_enterprise_application_platform_common_criteria_certification/5/html/hibernate_annotations_reference_guide/ch02s02s06#idm140546551831712
-
-
-    public Borrower() {
-    }
-
+    // Full constructor
     public Borrower(BorrowerId id, Book book, User reader, LocalDate dueDate, Integer fine) {
         this.id = id;
         this.book = book;
@@ -39,6 +34,26 @@ public class Borrower {
         this.dueDate = dueDate;
         this.fine = fine;
     }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    // Simplified constructor
+    public Borrower(Book book, User reader, LocalDate dueDate) {
+        this.book = book;
+        this.reader = reader;
+        this.dueDate = dueDate;
+        this.fine = 0; // Default fine value
+        this.id = new BorrowerId(book.getBookId(), reader.getUserId()); // Set IDs
+    }
+
+
+    public Borrower() {}
 
     public BorrowerId getId() {
         return id;
@@ -56,7 +71,7 @@ public class Borrower {
         this.book = book;
     }
 
-    public User getReader() {
+    public User getReader() { // Changed to return User
         return reader;
     }
 

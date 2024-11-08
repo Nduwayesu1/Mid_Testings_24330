@@ -18,6 +18,7 @@ public class Location {
     private String locationName;
     @Enumerated(EnumType.STRING)
     private ELocation_type type;
+
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "parent_id")
     private Location parentLocation;

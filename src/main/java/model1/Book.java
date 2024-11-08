@@ -10,6 +10,7 @@ import java.util.UUID;
 public class Book {
     @Id
     @Column(name = "book_id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID bookId;
 
     @Enumerated(EnumType.STRING)
@@ -47,6 +48,9 @@ public class Book {
         this.publisherName = publisherName;
         this.shelf = shelf;
         this.title = title;
+    }
+
+    public Book(UUID bookId) {
     }
 
     public UUID getBookId() {

@@ -1,6 +1,9 @@
 package model1;
 
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -13,6 +16,7 @@ public class BorrowerId implements Serializable {
     private LocalDate pickupDate;
     private LocalDate returnDate;
 
+
     public BorrowerId() {
     }
 
@@ -22,6 +26,12 @@ public class BorrowerId implements Serializable {
         this.pickupDate = pickupDate;
         this.returnDate = returnDate;
     }
+
+    public BorrowerId(UUID bookId, UUID userId) {
+        this.bookId=bookId;
+        this.readerId=userId;
+    }
+
 
     public UUID getBookId() {
         return bookId;

@@ -10,6 +10,7 @@ public class Room {
 
     @Id
     @Column(name = "room_id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID roomId;
 
     @Column(name = "room_code", nullable = false, unique = true)
@@ -42,5 +43,21 @@ public class Room {
 
     public void setShelfList(List<Shelf> shelfList) {
         this.shelfList = shelfList;
+    }
+
+
+    // Method to count books in the room
+    public int countBooksInRoom() {
+        int bookCount = 0;
+
+        if (shelfList != null) {
+            for (Shelf shelf : shelfList) {
+                if (shelf.getBookList() != null) {
+                    bookCount += shelf.getBookList().size(); // Count books on each shelf
+                }
+            }
+        }
+
+        return bookCount;
     }
 }

@@ -31,6 +31,9 @@ public class Membership {
     @Column(name = "registration_date", nullable = false)
     private LocalDate registrationDate;
 
+    public Membership(UUID membershipId, String membershipCode, LocalDate expiringTime, int pricePerDay, List<Membership_type> membershipTypes, EStatus status, UUID user, LocalDate now) {
+    }
+
     public Membership() {
     }
 

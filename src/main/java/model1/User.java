@@ -25,7 +25,7 @@ public class User extends Person {
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "village_id", referencedColumnName = "location_id", nullable = false)
     private Location location;
 
@@ -44,6 +44,23 @@ public class User extends Person {
         this.password = hashPassword(rawPassword);
         this.role = role;
         this.location = location;
+    }
+
+    public User(UUID userId) {
+        this.userId=userId;
+    }
+
+    public User(UUID userUUID, String sampleUser) {
+        this.userId=userUUID;
+        this.userName=sampleUser;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     private String hashPassword(String rawPassword) {

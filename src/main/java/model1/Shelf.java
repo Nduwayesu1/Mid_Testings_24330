@@ -1,6 +1,7 @@
 package model1;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +28,10 @@ public class Shelf {
     @ManyToOne
     @JoinColumn(name = "room_id", referencedColumnName = "room_id", nullable = false)
     private Room room;
+
+    // One-to-Many relationship with Book
+    @OneToMany(mappedBy = "shelf", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> bookList;
 
     // Getters and Setters
     public UUID getShelfId() {
@@ -75,5 +80,13 @@ public class Shelf {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 }
